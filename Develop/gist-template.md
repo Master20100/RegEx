@@ -34,32 +34,21 @@ let n = text.search(/Hi/);  //that will return the index of the word Hi which is
 ## Modifiers
 
 By default 
-Regular expressions 
-A-operate on whole expression/word . this can be changed by the use of [] 
-[] will look for specific characters and operate on them.
+Regular expressions are
 
-example
-[abc]	Any of the characters a, b, or c 
-[A-Z]	Any character from uppercase A to uppercase Z
-[a-z]	Any character from lowercase a to lowercase z
-[A-z]	Any character from uppercase A to lowercase z
-[^a-c]  Any character NOT between lowercase a to lowercase c
-[0-9]	Find any character between the brackets (any digit)
-(x|y)	Find either x or y
-
-B-case sensitive  this can be changed by the use of i(case insensitive). i is one of the modifiers.
+A-case sensitive  this can be changed by the use of i(case insensitive). i is one of the modifiers.
 let text = "Hi Bye Hi";
 let n = text.search(/hi/);   //this will return -1 which means not found as search is case sensitive
 let n = text.search(/hi/i);   //this will return 0 which means it found h character regardless of case sensitivty as search is case insensitive now
 
-C-find first match only this can be changed by the use of g(global search). g is one of the modifiers.
+B-find first match only this can be changed by the use of g(global search). g is one of the modifiers.
 let text = "Hi Bye Hi";
 let n = text.match(/Hi/); //Hi
 
 let text = "Hi Bye Hi";
 let n = text.match(/Hi/g); //Hi,Hi
 
-D-treat the the text as a single line. This can be changed by the use of m(multiple line search) where each new line is considered a single different line. m is one of the modifiers.
+C-treat the the text as a single line. This can be changed by the use of m(multiple line search) where each new line is considered a single different line. m is one of the modifiers.
 let text = `Hi 
 Bye hi`;
 let pattern = /^Bye/;
@@ -162,64 +151,87 @@ Enables full Unicode support. The flag enables correct processing of surrogate p
 
 
 ### Grouping and Capturing
+it is a way creating an expression by adding more than one character so that this expression will be treated as a single character.
+syntax
+that expression that will be treated as a single character will be enclosed in parentheses (...). This is called a “capturing group”.
+
+for example
+Without parentheses, the pattern go+ means g character, followed by o repeated one or more times. For instance, goooo or gooooooooo.
+With parentheses, the pattern (go)+ means go will be treated as a single character so to match, it will be go or gogo or gogogo and so on
+
+
 
 ### Bracket Expressions
+Brackets indicate a set of characters to match.
+[] will look for specific characters and operate on them.
 
+example
+[abc]	Any of the characters a, b, or c 
+[A-Z]	Any character from uppercase A to uppercase Z
+[a-z]	Any character from lowercase a to lowercase z
+[A-z]	Any character from uppercase A to lowercase z
+[^a-c]  Any character NOT between lowercase a to lowercase c
+[0-9]	Find any character between the brackets (any digit)
+(x|y)	Find either x or y
+
+example
+let text = "Is this all there is?";
+let pattern = /[t*i]/;
+let result = text.match(pattern); 
 ### Greedy and Lazy Match
+'Greedy' means match longest possible string.
+'Lazy' means match shortest possible string.
 
-### Boundaries
+for example 
+let text = "<div>Hi Bye Hi<div>";
+let greedy = text.match(/<.+>/g);//that will return the whole sentence since it will look for < then matches the last > which would be at the end of the sentence
+let lazy = text.match(/<.+?>/g);  //that will return the first div since we added ? which means 0 or 1 charcater to evaluate it in the shortest match(lazy) 
+
+
 
 ### Back-references
+A backreference in a regular expression identifies a previously matched group and looks for exactly the same text again.
+Back reference can be done by name or number
+If a regexp has many parentheses, it’s convenient to give them names.
+
+By name:-
+To reference a named group we can use \k<name>.
+example:-
+let str = `He said: "She's the one!".`;
+
+let regexp = /(?<quote>['"])(.*?)\k<quote>/g;
+
+alert( str.match(regexp) ); // "She's the one!"
+
+By number:-
+A group can be referenced in the pattern using \N, where N is the group number.
+
+let str = `He said: "She's the one!".`;
+
+let regexp = /(['"])(.*?)\1/g;
+
+alert( str.match(regexp) ); // "She's the one!"
+
 
 ### Look-ahead and Look-behind
+You can define patterns that only match when they're followed or not followed by another pattern with lookaheads.
+
+Positive and negative lookaheads:
+
+x(?=y) –  lookahead (matches 'x' when it's followed by 'y')
+x(?!y) –  lookbehind (matches 'x' when it's not followed by 'y')
+
+“lookahead” and “lookbehind”, together referred to as “lookaround”.
+Lookahead
+The syntax is: X(?=Y), it means "look for X, but match only if followed by Y". There may be any pattern instead of X and Y.
+let str = "1 turkey costs 30€";
+
+alert( str.match(/\d+(?=€)/) ); // 30, the number 1 is ignored, as it's not followed by €
+
+Lookbehind
+Lookbehind is similar, but it looks behind. That is, it allows to match a pattern only if there’s something before it.
+(?<=Y)X, matches X, but only if there’s Y before it.
+
 
 ## Author
-
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
-
-
-
- 
-
-by default 
-looks for the whole expression [] 
-case sensitive  i 
-first match only g 
-1 line search  m 
-
- 
-
-Modifiers can be used to perform case-insensitive more global searches i g m 
-
-example 
-
-let text = "Visit W3Schools"; 
-
-let pattern = /w3schools/i; 
-
-let result = text.match(pattern);    
-
-let n = text.search(/w3schools/i);  /6 
-
-text.replace(/W3Schools/i, "microsoft"); 
-
- 
-
-Regular expression arguments (instead of string arguments) can be used in the methods above. 
-
-Regular expressions can make your search much more powerful (case insensitive for example). 
- 
-
--Brackets are used to find a range of characters: 
-
- 
-
-[abc]Find any of the characters between the brackets. 
-
- 
-
-[0-9]Find any of the digits between the brackets 
-
- 
-
-(x|y)Find any of the alternatives separated with | 
+Mina Ghaly
