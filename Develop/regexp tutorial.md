@@ -2,14 +2,17 @@
 
 A regular expression is a sequence of characters/word that specifies a search pattern in text.
 
+
 ## Summary
 
 Briefly summarize the regex you will be describing and what you will explain. Include a code snippet of the regex. Replace this text with your summary.
 I will be using this regex for email validation as an example 
+
+
 ## Table of Contents
 - [Syntax](#syntax)
 - [Modifiers](#modifiers)
-- [Escape Characters](#Escape-characters)
+- [Escape Characters](#escape-characters)
 - [Anchors](#anchors)
 - [Quantifiers](#quantifiers)
 - [OR Operator](#or-operator)
@@ -18,14 +21,13 @@ I will be using this regex for email validation as an example
 - [Grouping and Capturing](#grouping-and-capturing)
 - [Bracket Expressions](#bracket-expressions)
 - [Greedy and Lazy Match](#greedy-and-lazy-match)
-- [Boundaries](#boundaries)
 - [Back-references](#back-references)
 - [Look-ahead and Look-behind](#look-ahead-and-look-behind)
-- [Summary](#Summary)
-- [Author](#Author)
+- [A summary](#a-summary)
+- [Author](#author)
 
 
-## Syntax
+### Syntax
 
 /pattern/modifiers;
 for example, to look for a word 
@@ -35,7 +37,8 @@ another example
 regex for matching an Email – /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 as you can see, it starts with forward slash and ends with forward slash as well
 
-## Modifiers
+
+### Modifiers
 
 By default 
 Regular expressions are
@@ -59,7 +62,9 @@ let pattern = /^Bye/;
 let result = text.match(pattern);  //here nothing is displayed as it is looking for a Bye word at the begining of the line.
 If we added /m    let pattern = /^Bye/m; //it will be found as it now treats each new line as a single line
 
-## Escape Characters
+
+### Escape Characters
+
 there are some characters which has a special meaning in regex. For example the dot charater . is a special character class that matches “any character except a newline”. Any character means a characterm not the abscence of a character.
 If we would like to use . as a normal dot character without this meaning, we would use an escape charater to change it to normal . charater 
 
@@ -67,13 +72,15 @@ for example
 regex for matching an Email – /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 this part \. means matching the . charater as a normal character
 
+
 ### Anchors
+
 Anchors are 2 special characters have special meaning in regular expressions. They do not match any character. Instead, they match a position before or after characters:
 
 - ^ which is called caret   it matches the beginning of the text
 The caret serves two different purposes. It is a special character that denotes “the beginning of a line” and it is a “not” operator inside of [].
 
-- $ which is called dollar  it matches the end of the text
+- \$ which is called dollar  it matches the end of the text
 If an entire regular expression is enclosed by a caret and dollar sign (^like this$), it matches an entire line.
 
 for example:-
@@ -82,6 +89,7 @@ since it starts with caret and ends with dollar sign, that means, we will be mat
 
 
 ### Quantifiers
+
 Quantifiers indicate numbers of characters or expressions to match.
 
 syntax:-
@@ -91,13 +99,11 @@ syntax:-
 -x{n}  means Matches the preceding item n times 
 -x{n,m}means Matches the preceding item n times to m times
 
-
 for example:-
 regex for matching an Email –  /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 this part [a-z0-9_\.-]+  means matching one charater or more of a to z lowercase or numbers
 and this part [\da-z\.-]+ means matching one charater or more of d for digit, any lower case charater, any . or -
 and this part ([a-z\.]{2,6}) means matching these characters a to z or . from 2 to 6 characters.
-
 
 For example, /a{2}/ doesn't match the "a" in "candy", but it matches all of the "a"'s in "caandy", and the first two "a"'s in "caaandy".
 /\b{n}\b/ /b will make it look for the words with the exact number of characters.
@@ -118,7 +124,9 @@ let n = text.match(/\d{3}/);    //here it will result in 101
 let n = text.match(/\d{2}/);    //here it will result in 10
 let n = text.match(/\d{1}/);    //here it will result in 1
 
+
 ### OR Operator
+
 OR is written as | in regexp 
 it means to search for either of the words or characters.
 
@@ -135,6 +143,7 @@ alert( str.match(regexp) ); // here results will be any of these 'HTML', 'CSS', 
 
 
 ### Character Classes
+
 A character class is a special notation that matches any symbol from a certain set.
 there are many character classes, however will only explain the most common
 - \d (“d” is from “digit”)
@@ -169,7 +178,9 @@ alert( str.match(regexp) ); // array of matches: 7,9,0,3,1,2,3,4,5,6,7
 Inverse classes is matching all classes except the one we specified. It is written the same way as the character Classes
 but in capital letters
 
+
 ### Flags
+
   Flags are the same as modifiers mentioned above.
   We will add here some other modifiers which are not as common as g,i or m.
 
@@ -182,6 +193,7 @@ Enables full Unicode support. The flag enables correct processing of surrogate p
 
 
 ### Grouping and Capturing
+
 it is a way creating an expression by adding more than one character so that this expression will be treated as a single character.
 syntax
 that expression that will be treated as a single character will be enclosed in parentheses (...). This is called a “capturing group”.
@@ -197,8 +209,8 @@ Without parentheses, the pattern go+ means g character, followed by o repeated o
 With parentheses, the pattern (go)+ means go will be treated as a single character so to match, it will be go or gogo or gogogo and so on
 
 
-
 ### Bracket Expressions
+
 Brackets indicate a set of characters to match.
 [] will look for specific characters and operate on them.
 
@@ -221,7 +233,10 @@ example
 let text = "Is this all there is?";
 let pattern = /[t*i]/;
 let result = text.match(pattern); 
+
+
 ### Greedy and Lazy Match
+
 'Greedy' means match longest possible string.
 'Lazy' means match shortest possible string.
 
@@ -231,8 +246,8 @@ let greedy = text.match(/<.+>/g);//that will return the whole sentence since it 
 let lazy = text.match(/<.+?>/g);  //that will return the first div since we added ? which means 0 or 1 charcater to evaluate it in the shortest match(lazy) 
 
 
-
 ### Back-references
+
 A backreference in a regular expression identifies a previously matched group and looks for exactly the same text again.
 Back reference can be done by name or number
 If a regexp has many parentheses, it’s convenient to give them names.
@@ -257,6 +272,7 @@ alert( str.match(regexp) ); // "She's the one!"
 
 
 ### Look-ahead and Look-behind
+
 You can define patterns that only match when they're followed or not followed by another pattern with lookaheads.
 
 Positive and negative lookaheads:
@@ -275,7 +291,9 @@ Lookbehind
 Lookbehind is similar, but it looks behind. That is, it allows to match a pattern only if there’s something before it.
 (?<=Y)X, matches X, but only if there’s Y before it.
 
-## Summary
+
+### A summary
+
 to sum up, I will explain again the email matching regex completely here not in parts like the previous examples
 /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 here we start and finish with back slash / to indicate it is a regex.
@@ -293,5 +311,6 @@ then third part
 
 
 ### Author
+
 Mina Ghaly
 www.github.com/Master20100
