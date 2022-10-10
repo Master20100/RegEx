@@ -296,6 +296,7 @@ Lookbehind is similar, but it looks behind. That is, it allows to match a patter
 
 to sum up, I will explain again the email matching regex completely here not in parts like the previous examples
 /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+
 here we start and finish with back slash / to indicate it is a regex.
 the regex start with caret ^ and finishes with $ to indicate we need to match the whole sentence.
 first part
